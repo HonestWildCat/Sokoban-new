@@ -1,0 +1,44 @@
+.container{
+    text-align: right;
+}
+
+.row{
+    text-align: center;
+}
+
+.btn{
+    display: inline-block;
+    font-size: 1.8em;
+    font-weight: bold;
+    background-color: rgba(14, 255, 251, 0.7);
+    border-radius: 1vh;
+    margin: 0.5vh;
+    border-top: 0.5vh solid rgb(220, 255, 172);
+    border-left: 0.5vh solid rgb(172, 255, 248);
+    box-shadow: 0.5vh 0.5vh 0 rgb(3, 50, 91);
+}
+
+.active{
+    background-color: rgba(60, 60, 80, 0.7);
+    transform: scale(0.8);
+}
+
+.canvas-container{
+    text-align: center;
+}
+
+canvas{
+    background-color: orange;
+    display: inline-block;
+    border-radius: 1.5vh;
+    border-bottom: 0.5vh solid rgba(255, 248, 172, 0.3);
+    border-right: 0.5vh solid rgba(255, 197, 103, 0.3);
+    box-shadow: -0.5vh -0.5vh 0 rgb(5, 62, 82);
+}
+
+body{
+    overflow: auto;
+    /* background-color: rgb(9, 99, 99); */
+    background: rgb(43,153,137);
+    background: linear-gradient(90deg, rgba(43,153,137,1) 0%, rgba(9,99,99,1) 35%, rgba(11,51,92,1) 100%);
+}
