@@ -1,5 +1,6 @@
 .container{
     text-align: right;
+    position: absolute;
 }
 
 .row{
@@ -10,12 +11,8 @@
     display: inline-block;
     font-size: 1.8em;
     font-weight: bold;
-    background-color: rgba(14, 255, 251, 0.7);
     border-radius: 1vh;
     margin: 0.5vh;
-    border-top: 0.5vh solid rgb(220, 255, 172);
-    border-left: 0.5vh solid rgb(172, 255, 248);
-    box-shadow: 0.5vh 0.5vh 0 rgb(3, 50, 91);
 }
 
 .active{
@@ -28,17 +25,47 @@
 }
 
 canvas{
-    background-color: orange;
     display: inline-block;
     border-radius: 1.5vh;
-    border-bottom: 0.5vh solid rgba(255, 248, 172, 0.3);
-    border-right: 0.5vh solid rgba(255, 197, 103, 0.3);
-    box-shadow: -0.5vh -0.5vh 0 rgb(5, 62, 82);
 }
 
 body{
     overflow: auto;
-    /* background-color: rgb(9, 99, 99); */
+}
+
+/* Color pallets */
+.btn-green{
+    background-color: rgba(14, 255, 251, 0.5);
+    border-radius: 1vh;
+    margin: 0.5vh;
+    border-top: 0.5vh solid rgb(220, 255, 172);
+    border-left: 0.5vh solid rgb(172, 255, 248);
+    box-shadow: 0.5vh 0.5vh 0 rgb(3, 50, 91);
+}
+
+.canvas-green{
+    background-color: orange;
+}
+
+.body-green{
     background: rgb(43,153,137);
-    background: linear-gradient(90deg, rgba(43,153,137,1) 0%, rgba(9,99,99,1) 35%, rgba(11,51,92,1) 100%);
+    background: linear-gradient(90deg, rgba(43,153,137,1) 0%, rgba(9,99,99,1) 35%, rgba(11,51,92,1) 100%);    
+}
+
+.btn-bluegray{
+    background-color: rgba(110, 113, 137, 0.5);
+    border-radius: 1vh;
+    margin: 0.5vh;
+    border-top: 0.5vh solid rgba(172, 218, 255, 0.7);
+    border-left: 0.5vh solid rgba(135, 160, 194, 0.7);
+    box-shadow: 0.5vh 0.5vh 0 rgba(24, 55, 82, 0.7);
+}
+
+.canvas-bluegray{
+    background-color: rgb(248, 243, 234);
+}
+
+.body-bluegray{
+    background: rgb(43, 47, 153);
+    background: linear-gradient(90deg, rgb(115, 146, 182) 0%, rgb(60, 98, 144) 35%, rgb(23, 42, 68) 100%);
 }
