@@ -4,66 +4,67 @@ const screenHeight = document.documentElement.clientHeight;
 const isVertical = screenWidth < screenHeight;
 const isComputer = navigator.userAgent.includes("Win");
 
-// Setting object array, cell size
+// Levels
 const levels = {
-    "1":[[4, 0, 0, 0, 4],
-        [0, 5, 0, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 2, 0, 0, 0],
-        [4, 0, 0, 0, 4]],
+    "1":[[9, 0, 0, 0, 9],
+         [0, 5, 0, 0, 0],
+         [0, 0, 0, 1, 0],
+         [0, 2, 0, 0, 0],
+         [9, 0, 0, 0, 9]],
 
-    "2":[[0, 0, 0, 4, 4, 4, 4],
-        [0, 0, 0, 4, 5, 0, 4],
-        [0, 0, 0, 4, 0, 0, 4],
-        [0, 0, 0, 4, 1, 2, 4],
-        [4, 4, 4, 4, 0, 0, 4],
-        [4, 0, 0, 0, 0, 0, 4],
-        [4, 0, 1, 2, 0, 0, 4],
-        [4, 4, 4, 4, 4, 4, 4]]
+    "2":[[9, 9, 9, 4, 4, 4, 4],
+         [9, 9, 9, 4, 0, 0, 4],
+         [9, 9, 9, 4, 0, 0, 4],
+         [9, 9, 9, 4, 1, 2, 4],
+         [4, 4, 4, 4, 0, 0, 4],
+         [4, 0, 0, 0, 0, 0, 4],
+         [4, 5, 1, 2, 0, 0, 4],
+         [4, 4, 4, 4, 4, 4, 4]],
+
+     "3":[[9, 9, 4, 4, 4, 4, 4, 4, 9],
+         [9, 9, 4, 0, 0, 0, 0, 4, 4],
+         [4, 4, 4, 1, 4, 4, 0, 0, 4],
+         [4, 2, 0, 0, 0, 1, 0, 0, 4],
+         [4, 2, 0, 0, 4, 4, 0, 0, 4],
+         [4, 6, 0, 4, 4, 0, 0, 0, 4],
+         [4, 4, 0, 1, 0, 0, 0, 0, 4],
+         [9, 4, 0, 0, 0, 0, 0, 4, 4],
+         [9, 4, 4, 4, 4, 4, 4, 4, 9]],
+
+     "4":[[4, 4, 4, 4, 4, 9, 9],
+          [4, 0, 0, 0, 4, 4, 4],
+          [4, 0, 0, 1, 5, 0, 4],
+          [4, 2, 3, 3, 2, 0, 4],
+          [4, 0, 1, 0, 0, 0, 4],
+          [4, 4, 0, 0, 0, 4, 4],
+          [9, 4, 0, 0, 4, 4, 9],
+          [9, 4, 4, 4, 4, 9, 9]],
+
+     "5":[[9, 9, 9, 4, 4, 4, 4, 9],
+          [4, 4, 4, 4, 0, 0, 4, 4],
+          [4, 0, 0, 2, 2, 2, 0, 4],
+          [4, 0, 1, 2, 1, 2, 0, 4],
+          [4, 4, 1, 1, 1, 0, 4, 4],
+          [9, 4, 0, 5, 0, 0, 4, 9],
+          [9, 4, 4, 4, 4, 4, 4, 9]]
 };
 
-let objArr = levels[1];
-let cellsOnX = objArr[0].length;
-let cellsOnY = objArr.length;
-let cellSize = calculateCellSize(cellsOnX, cellsOnY);
+let currLevel = 1;
+let gotVictory = false;
 
-function calculateCellSize(cellsX, cellsY){
-    let cellSizeY = Math.floor(screenHeight * 0.97 / cellsOnY);
-    let cellSizeX = Math.floor(screenWidth * 0.98 / cellsOnX);
-    let cellSize = cellSizeY - (cellSizeY - cellSizeX);
-    return isComputer ? cellSize * 0.3 : cellSize;
-};
+let objArr, cellsOnX, cellsOnY, cellSize;
+let maxWidth, maxHeight;
+let canvasEl, canvas;
 
-// Calculating max game width and height
-let maxWidth = cellSize * cellsOnX;
-let maxHeight = cellSize * cellsOnY;
-
-
+// Setting current level, object array, cell size
+selectLevel();
+// Calculating max width and height
+maxGameSize();
 // Placing canvas, calculating it`s width, height
-let canvasEl = document.querySelector("canvas");
-canvasEl.width = maxWidth;
-canvasEl.height = maxHeight;
-canvasEl.style.top = (screenHeight - maxHeight) / 3 + "px";
-canvasEl.style.left = (screenWidth - maxWidth) / 2 + "px";
-let canvas = canvasEl.getContext('2d'); // Getting canvas image
-
-//Player coordinates
-let player = {};
-
+placeCanvas();
 // Setting button container position
-function setBtnContainerPos(){
-    let btnContainer = document.querySelector(".container");
-    let btnContainerRect = btnContainer.getBoundingClientRect()
-
-    if(isVertical){
-        btnContainer.style.left = (screenWidth - btnContainerRect.width) / 3.5 + "px";
-        btnContainer.style.top = screenHeight - btnContainerRect.height * 1.3 + "px";
-    }
-    else{
-        btnContainer.style.left = (screenWidth - btnContainerRect.width) / 1.2 + "px";
-        btnContainer.style.top = screenHeight - btnContainerRect.height * 1.3 + "px";
-    };
-};
+let repeatBtn = document.getElementById("repeat-btn");
+let nextBtn = document.getElementById("next-btn");
 setBtnContainerPos();
 
 // Getting buttons
@@ -74,6 +75,64 @@ let down = document.getElementById("down");
 let center = document.getElementById("center");
 let btnList = document.querySelectorAll(".btn");
 setBtnSize();
+
+// Creating coordinates array, drawing map first time
+let coordinatesArr;
+createCoordinatesArr();
+
+
+// FUNCTIONS
+
+function selectLevel(){
+    objArr = structuredClone(levels[currLevel]);
+    // Cells amount, size
+    cellsOnX = objArr[0].length;
+    cellsOnY = objArr.length;
+    cellSize = calculateCellSize(cellsOnX, cellsOnY);
+}
+
+function calculateCellSize(){
+    let cellSizeY = Math.floor(screenHeight * 0.97 / cellsOnY);
+    let cellSizeX = Math.floor(screenWidth * 0.98 / cellsOnX);
+    let cellSize = cellSizeY - (cellSizeY - cellSizeX);
+    return isComputer ? cellSize * 0.3 : cellSize;
+};
+
+function maxGameSize(){
+    maxWidth = cellSize * cellsOnX;
+    maxHeight = cellSize * cellsOnY;
+}
+
+function placeCanvas(){
+    canvasEl = document.querySelector("canvas");
+    canvasEl.width = maxWidth;
+    canvasEl.height = maxHeight;
+    canvasEl.style.top = (screenHeight - maxHeight) / 3 + "px";
+    canvasEl.style.left = (screenWidth - maxWidth) / 2 + "px";
+    canvas = canvasEl.getContext('2d'); // Getting canvas image
+}
+
+function setBtnContainerPos(){
+    let btnContainer = document.querySelector(".container");
+    document.querySelector(".game-end-modal-container").style.display = "none";
+    let gameEndModal = document.querySelector(".game-end-modal");
+    let btnContainerRect = btnContainer.getBoundingClientRect();
+
+    if(isVertical){
+        btnContainer.style.left = (screenWidth - btnContainerRect.width) / 3.5 + "px";
+        btnContainer.style.top = screenHeight - btnContainerRect.height * 1.3 + "px";
+        gameEndModal.classList.add("vertical");
+        repeatBtn.classList.add("vertical");
+        nextBtn.classList.add("vertical");
+    }
+    else{
+        btnContainer.style.left = (screenWidth - btnContainerRect.width) / 1.2 + "px";
+        btnContainer.style.top = screenHeight - btnContainerRect.height * 1.3 + "px";
+        gameEndModal.classList.add("horisontal");
+        repeatBtn.classList.add("horisontal");
+        nextBtn.classList.add("horisontal");
+    };
+};
 
 function setBtnSize(){
     if(isVertical){
@@ -90,15 +149,18 @@ function setBtnSize(){
     };
 };
 
-// Creating coordinates array, drawing map first time
 function createCoordinatesArr(){
-    canvas.strokeStyle = "rgb(220, 212, 200)" //"darkorange"
-    let coordinatesArr = [];
+    canvas.strokeStyle = "rgb(220, 212, 200)"
+    coordinatesArr = [];
     for(let i = 0; i < cellsOnY; i++){
         coordinatesArr.push([]);
         for(let j = 0; j < cellsOnX; j++){
             coordinatesArr[i].push([j * cellSize, i * cellSize]);
-            canvas.strokeRect(j * cellSize, i * cellSize, cellSize, cellSize);
+            if(objArr[i][j] != 9){ // 9 - not painted
+                canvas.fillStyle = "rgb(248, 243, 234)";
+                canvas.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                canvas.strokeRect(j * cellSize, i * cellSize, cellSize, cellSize);
+            }
             switch(objArr[i][j]){
                 // 0 - empty
                 case 1: // target
@@ -139,10 +201,8 @@ function createCoordinatesArr(){
 
         };
     };
-    return coordinatesArr;
 };
 
-let coordinatesArr = createCoordinatesArr();
 
 function calculateCollisions(objX, objY, addX, addY){
     const whatIsAhead = objArr[objY + addY][objX + addX];
@@ -150,10 +210,13 @@ function calculateCollisions(objX, objY, addX, addY){
     switch(whatIsAhead){
         case 0: return {canMove: true, before: 0, after: null}; // empty
         case 1: // target
-            if(!isCellAfterAheadInArray || objArr[objY + addY * 2][objX + addX * 2] == 4 || objArr[objY + addY * 2][objX + addX * 2] == 3) return {canMove: false, before: null, after: null};
+            if(!isCellAfterAheadInArray || objArr[objY + addY * 2][objX + addX * 2] == 4 || objArr[objY + addY * 2][objX + addX * 2] == 3 || objArr[objY + addY * 2][objX + addX * 2] == 9) return {canMove: false, before: null, after: null};
             if(objArr[objY + addY * 2][objX + addX * 2] == 2){
                 countFreeTargets(-1);
                 return {canMove: true, before: 0, after: 3};
+            }
+            else if(objArr[objY + addY * 2][objX + addX * 2] == 1){
+                return {canMove: false, before: null, after: null};
             }
             else{
                 return {canMove: true, before: 0, after: 1};
@@ -162,10 +225,11 @@ function calculateCollisions(objX, objY, addX, addY){
             player.onPlace = true;
             return {canMove: true, before: 0, after: null};
         case 3: // target on place
-            if(!isCellAfterAheadInArray || objArr[objY + addY * 2][objX + addX * 2] == 4) return {canMove: false, before: null, after: null};
+            if(!isCellAfterAheadInArray || objArr[objY + addY * 2][objX + addX * 2] == 4 || objArr[objY + addY * 2][objX + addX * 2] == 3 || objArr[objY + addY * 2][objX + addX * 2] == 9) return {canMove: false, before: null, after: null};
             player.onPlace = true;
-            return {canMove: true, before: 0, after: 1};
+            return (objArr[objY + addY * 2][objX + addX * 2] == 2) ? {canMove: true, before: 0, after: 3} : {canMove: true, before: 0, after: 1};
         case 4: // wall
+        case 9: 
             return {canMove: false, before: null, after: null};
     };
 };
@@ -176,12 +240,13 @@ function countFreeTargets(count){
             if(obj === 1) count++;
         };
     };
-    if(!count) win();
+    if(!count) victory();
 };
 
 function eraseObj(objX, objY){
     const coordinates = coordinatesArr[objY][objX];
-    canvas.clearRect(coordinates[0], coordinates[1], cellSize, cellSize);
+    canvas.fillStyle = "rgb(248, 243, 234)";
+    canvas.fillRect(coordinates[0], coordinates[1], cellSize, cellSize);
     canvas.strokeRect(coordinates[0], coordinates[1], cellSize, cellSize);
 };
 
@@ -214,7 +279,7 @@ function renderMove(addX, addY){
             if(playerOnPlace){
                 objArr[player.y][player.x] = 2;
                 drawObj(player.x, player.y, 2);
-                player.onPlace = false;
+                player.onPlace = (objArr[player.y + addY][player.x + addX] == 2 || objArr[player.y + addY][player.x + addX] == 3);
             };
             // set player
             player.x += addX;
@@ -230,43 +295,46 @@ function renderMove(addX, addY){
     };
 };
 
-function win(){
-    let gameEndModal = document.querySelector(".game-end-modal");
-    gameEndModal.style.display = "flex"
-    let info = document.getElementById("info");
-    info.innerText = "== You WON! ==";
-    document.getElementById("repeat-btn").addEventListener("touchstart", e => {
-        gameEndModal.style.display = "none"
-        objArr = levels[2];
-        cellsOnX = objArr[0].length;
-        cellsOnY = objArr.length;
-        cellSize = calculateCellSize(cellsOnX, cellsOnY);
-        
-        function calculateCellSize(cellsX, cellsY){
-            let cellSizeY = Math.floor(screenHeight * 0.97 / cellsOnY);
-            let cellSizeX = Math.floor(screenWidth * 0.98 / cellsOnX);
-            let cellSize = cellSizeY - (cellSizeY - cellSizeX);
-            return isComputer ? cellSize * 0.3 : cellSize;
-        };
-        
-        // Calculating max game width and height
-        maxWidth = cellSize * cellsOnX;
-        maxHeight = cellSize * cellsOnY;
-        
-        
-        // Placing canvas, calculating it`s width, height
-        canvasEl = document.querySelector("canvas");
-        canvasEl.width = maxWidth;
-        canvasEl.height = maxHeight;
-        canvasEl.style.top = (screenHeight - maxHeight) / 3 + "px";
-        canvasEl.style.left = (screenWidth - maxWidth) / 2 + "px";
-        canvas = canvasEl.getContext('2d'); // Getting canvas image
-        
-        //Player coordinates
-        player = {};
-        coordinatesArr = createCoordinatesArr();
-    });
+function victory(){
+    gotVictory = true;
+    document.querySelector(".game-end-modal-container").style.display = "flex";
 };
+
+function repeatLevel(){
+    gotVictory = false;
+    currLevel = currLevel;
+
+    // Setting current level, object array, cell size
+    selectLevel();
+    // Calculating max width and height
+    maxGameSize();
+    // Placing canvas, calculating it`s width, height
+    placeCanvas();
+    // Getting buttons
+    setBtnSize();
+    document.querySelector(".game-end-modal-container").style.display = "none";
+    // Creating coordinates array, drawing map first time
+    createCoordinatesArr();
+}
+
+function nextLevel(){
+    gotVictory = false;
+
+    currLevel = (currLevel > 4) ? 1 : currLevel + 1;
+    console.log(currLevel)
+
+    // Setting current level, object array, cell size
+    selectLevel();
+    // Calculating max width and height
+    maxGameSize();
+    // Placing canvas, calculating it`s width, height
+    placeCanvas();
+    // Getting buttons
+    setBtnSize();
+    document.querySelector(".game-end-modal-container").style.display = "none";
+    // Creating coordinates array, drawing map first time
+    createCoordinatesArr();
+}
 
 // Touchstart listeners
 up.addEventListener("touchstart", e => {
@@ -308,36 +376,63 @@ left.addEventListener("touchend", e => {
 
 //Keyboard "keydown" Listeners
 document.addEventListener("keydown", (e) => {
-    if(e.code == "KeyW" || e.code == "ArrowUp"){
-        renderMove(0, -1);
-        up.classList.add("active");
-    }
-    else if(e.code == "KeyD" || e.code == "ArrowRight"){
-        renderMove(1, 0);
-        right.classList.add("active");
-    }
-    else if(e.code == "KeyS" || e.code == "ArrowDown"){
-        renderMove(0, 1);
-        down.classList.add("active");
-    }
-    else if(e.code == "KeyA" || e.code == "ArrowLeft"){
-        renderMove(-1, 0);
-        left.classList.add("active");
+    if(!gotVictory){
+        if(e.code == "KeyW" || e.code == "ArrowUp"){
+            renderMove(0, -1);
+            up.classList.add("active");
+        }
+        else if(e.code == "KeyD" || e.code == "ArrowRight"){
+            renderMove(1, 0);
+            right.classList.add("active");
+        }
+        else if(e.code == "KeyS" || e.code == "ArrowDown"){
+            renderMove(0, 1);
+            down.classList.add("active");
+        }
+        else if(e.code == "KeyA" || e.code == "ArrowLeft"){
+            renderMove(-1, 0);
+            left.classList.add("active");
+        }
+        else if(e.code == "KeyV"){
+            victory();
+        }
+        else if(e.code == "KeyR"){
+            repeatLevel();
+        };
     };
 });
 
 //Keyboard "keyup" Listeners
 document.addEventListener("keyup", (e) => {
-    if(e.code == "KeyW" || e.code == "ArrowUp"){
-        up.classList.remove("active");
-    }
-    else if(e.code == "KeyD" || e.code == "ArrowRight"){
-        right.classList.remove("active");
-    }
-    else if(e.code == "KeyS" || e.code == "ArrowDown"){
-        down.classList.remove("active");
-    }
-    else if(e.code == "KeyA" || e.code == "ArrowLeft"){
-        left.classList.remove("active");
-    };
+    if(!gotVictory){
+        if(e.code == "KeyW" || e.code == "ArrowUp"){
+            up.classList.remove("active");
+        }
+        else if(e.code == "KeyD" || e.code == "ArrowRight"){
+            right.classList.remove("active");
+        }
+        else if(e.code == "KeyS" || e.code == "ArrowDown"){
+            down.classList.remove("active");
+        }
+        else if(e.code == "KeyA" || e.code == "ArrowLeft"){
+            left.classList.remove("active");
+        };
+    }; 
 });
+
+if(isComputer){
+    repeatBtn.addEventListener("click", e => {
+        repeatLevel();
+    }, {passive: true});
+    nextBtn.addEventListener("click", e => {
+        nextLevel();
+    }, {passive: true});
+}
+else{
+    repeatBtn.addEventListener("touchstart", e => {
+        repeatLevel();
+    }, {passive: true});
+    nextBtn.addEventListener("click", e => {
+        nextLevel();
+    }, {passive: true});
+};
