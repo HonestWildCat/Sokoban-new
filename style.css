@@ -1,3 +1,5 @@
+/* Move buttons */
+
 .container{
     text-align: right;
     position: absolute;
@@ -20,6 +22,8 @@
     transform: scale(0.8);
 }
 
+/* Canvas */
+
 .canvas-container{
     text-align: center;
 }
@@ -31,9 +35,44 @@ canvas{
 }
 
 body{
-    overflow: auto;
+    overflow: hidden;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    background: rgb(43, 47, 153);
+    background: linear-gradient(90deg, rgb(115, 146, 182) 0%, rgb(60, 98, 144) 35%, rgb(23, 42, 68) 100%);
 }
-.game-end-modal-container{
+
+/* Upper menu */
+.upper-menu-container{
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.3) 35%, rgba(255, 255, 255, 0.5) 100%);
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
+    padding-bottom: 1%;
+    z-index: 99;
+    margin-top: 1.5%;
+}
+
+.upper-menu{
+    /* background-color: white; */
+    display: inline-block;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bolder;
+    color: rgb(23, 42, 68);
+}
+
+#repeat-btn:active, #menu-btn:active{
+    transform: scale(0.8);
+    color: rgb(0, 0, 0);
+}
+
+/* Game end menu */
+
+.game-end-modal-container, .menu-modal-container{
     position: fixed;
     top:0;
     left:0;
@@ -60,7 +99,7 @@ body{
     height: 32%;
 }
 
-#info{
+#game-end-text{
     text-align: center;
     font-size: 2em;
     margin: 5% 0 10% 0;
@@ -82,24 +121,95 @@ input.btn.horisontal{
     min-width:10%
 }
 
-/* Color pallets */
-.btn-green{
-    background-color: rgba(14, 255, 251, 0.5);
+/* Levels menu */
+
+.menu-modal-container{
+    background: none;
+    display: none;
+}
+
+.menu-modal{
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0.5vh 0.5vh 0 rgba(24, 55, 82, 0.3);
     border-radius: 1vh;
-    margin: 0.5vh;
-    border-top: 0.5vh solid rgb(220, 255, 172);
-    border-left: 0.5vh solid rgb(172, 255, 248);
-    box-shadow: 0.5vh 0.5vh 0 rgb(3, 50, 91);
+    width: 90%;
+    margin: 6% 1% 5% 0;
 }
 
-.canvas-green{
-    background-color: orange;
+.levels{
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    margin: 2%;
+    border-radius: 1vh;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
 }
 
-.body-green{
-    background: rgb(43,153,137);
-    background: linear-gradient(90deg, rgba(43,153,137,1) 0%, rgba(9,99,99,1) 35%, rgba(11,51,92,1) 100%);    
+.levels.vertical{
+    height: 85%;
 }
+
+.levels.horisontal{
+    height: 75%;
+}
+
+.lvl{
+    /* background: linear-gradient(90deg, rgb(115, 146, 182) 0%, rgb(60, 98, 144) 35%, rgb(23, 42, 68) 100%); */
+    background-color: #a3b9dd;
+    color: rgb(42, 81, 129);
+    display: inline-block;
+    border-radius: 1vh;
+}
+
+.lvl.vertical{
+    font-size: 3em;
+    width: 20%;
+    height: 9%;
+    margin: 5%;
+}
+
+.lvl.horisontal{
+    font-size: 5em;
+    width: 10%;
+    height: 25%;
+    margin: 3%;
+}
+
+.lvl.curr{
+    background-color: #5072A7;
+    color: rgb(6, 18, 34);
+}
+
+.lvl.passed{
+    background-color: #87A96B;
+    color: #3e5d26;
+}
+
+.lvl.curr-passed{
+    background-color: #527337;
+    color: #0f1d04;
+}
+
+
+#back-btn{
+    font-size: 4em;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 1vh;
+    text-align: center;
+    padding: 0;
+    margin: 2%;
+}
+
+#back-btn:active{
+    transform: scale(0.95);
+    background-color: rgba(255, 255, 255, 0.7);
+    color: rgb(0, 0, 0);
+}
+
+/* Color pallets */
 
 .btn-bluegray{
     background-color: rgba(110, 113, 137, 0.5);
@@ -108,9 +218,4 @@ input.btn.horisontal{
     border-top: 0.5vh solid rgba(172, 218, 255, 0.7);
     border-left: 0.5vh solid rgba(135, 160, 194, 0.7);
     box-shadow: 0.5vh 0.5vh 0 rgba(24, 55, 82, 0.7);
-}
-
-.body-bluegray{
-    background: rgb(43, 47, 153);
-    background: linear-gradient(90deg, rgb(115, 146, 182) 0%, rgb(60, 98, 144) 35%, rgb(23, 42, 68) 100%);
 }

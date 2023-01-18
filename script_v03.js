@@ -6,55 +6,120 @@ const isComputer = navigator.userAgent.includes("Win");
 
 // Levels
 const levels = {
-    "1":[[9, 0, 0, 0, 9],
-         [0, 5, 0, 0, 0],
-         [0, 0, 0, 1, 0],
-         [0, 2, 0, 0, 0],
-         [9, 0, 0, 0, 9]],
+    "1":{
+        "lvl":[[9, 0, 0, 0, 9],
+               [0, 5, 0, 0, 0],
+               [0, 0, 0, 1, 0],
+               [0, 2, 0, 0, 0],
+               [9, 0, 0, 0, 9]],
+        "passed": false},
 
-    "2":[[9, 9, 9, 4, 4, 4, 4],
-         [9, 9, 9, 4, 0, 0, 4],
-         [9, 9, 9, 4, 0, 0, 4],
-         [9, 9, 9, 4, 1, 2, 4],
-         [4, 4, 4, 4, 0, 0, 4],
-         [4, 0, 0, 0, 0, 0, 4],
-         [4, 5, 1, 2, 0, 0, 4],
-         [4, 4, 4, 4, 4, 4, 4]],
+    "2":{
+        "lvl":[[9, 9, 9, 4, 4, 4, 4],
+               [9, 9, 9, 4, 0, 0, 4],
+               [9, 9, 9, 4, 0, 0, 4],
+               [9, 9, 9, 4, 1, 2, 4],
+               [4, 4, 4, 4, 0, 0, 4],
+               [4, 0, 0, 0, 0, 0, 4],
+               [4, 5, 1, 2, 0, 0, 4],
+               [4, 4, 4, 4, 4, 4, 4]],
+        "passed": false},
 
-     "3":[[9, 9, 4, 4, 4, 4, 4, 4, 9],
-         [9, 9, 4, 0, 0, 0, 0, 4, 4],
-         [4, 4, 4, 1, 4, 4, 0, 0, 4],
-         [4, 2, 0, 0, 0, 1, 0, 0, 4],
-         [4, 2, 0, 0, 4, 4, 0, 0, 4],
-         [4, 6, 0, 4, 4, 0, 0, 0, 4],
-         [4, 4, 0, 1, 0, 0, 0, 0, 4],
-         [9, 4, 0, 0, 0, 0, 0, 4, 4],
-         [9, 4, 4, 4, 4, 4, 4, 4, 9]],
+     "3":{
+        "lvl":[[9, 9, 4, 4, 4, 4, 4, 4, 9],
+               [9, 9, 4, 0, 0, 0, 0, 4, 4],
+               [4, 4, 4, 1, 4, 4, 0, 0, 4],
+               [4, 2, 0, 0, 0, 1, 0, 0, 4],
+               [4, 2, 0, 0, 4, 4, 0, 0, 4],
+               [4, 6, 0, 4, 4, 0, 0, 0, 4],
+               [4, 4, 0, 1, 0, 0, 0, 0, 4],
+               [9, 4, 0, 0, 0, 0, 0, 4, 4],
+               [9, 4, 4, 4, 4, 4, 4, 4, 9]],
+        "passed": false},
 
-     "4":[[4, 4, 4, 4, 4, 9, 9],
-          [4, 0, 0, 0, 4, 4, 4],
-          [4, 0, 0, 1, 5, 0, 4],
-          [4, 2, 3, 3, 2, 0, 4],
-          [4, 0, 1, 0, 0, 0, 4],
-          [4, 4, 0, 0, 0, 4, 4],
-          [9, 4, 0, 0, 4, 4, 9],
-          [9, 4, 4, 4, 4, 9, 9]],
+     "4":{
+        "lvl":[[4, 4, 4, 4, 4, 9, 9],
+               [4, 0, 0, 0, 4, 4, 4],
+               [4, 0, 0, 1, 5, 0, 4],
+               [4, 2, 3, 3, 2, 0, 4],
+               [4, 0, 1, 0, 0, 0, 4],
+               [4, 4, 0, 0, 0, 4, 4],
+               [9, 4, 0, 0, 4, 4, 9],
+               [9, 4, 4, 4, 4, 9, 9]],
+        "passed": false},
 
-     "5":[[9, 9, 9, 4, 4, 4, 4, 9],
-          [4, 4, 4, 4, 0, 0, 4, 4],
-          [4, 0, 0, 2, 2, 2, 0, 4],
-          [4, 0, 1, 2, 1, 2, 0, 4],
-          [4, 4, 1, 1, 1, 0, 4, 4],
-          [9, 4, 0, 5, 0, 0, 4, 9],
-          [9, 4, 4, 4, 4, 4, 4, 9]]
+     "5":{
+        "lvl":[[9, 9, 4, 4, 4, 4, 4],
+               [4, 4, 4, 2, 2, 2, 4],
+               [4, 0, 1, 2, 1, 2, 4],
+               [4, 0, 1, 1, 1, 0, 4],
+               [4, 0, 0, 5, 0, 0, 4],
+               [4, 4, 4, 4, 4, 4, 4]],
+        "passed": false},
+
+     "6":{
+        "lvl":[[9, 9, 9, 4, 4, 4, 4, 4],
+               [9, 9, 4, 4, 0, 0, 0, 4],
+               [9, 4, 4, 0, 0, 1, 0, 4],
+               [9, 4, 0, 0, 4, 0, 4, 4],
+               [4, 4, 3, 0, 3, 0, 2, 4],
+               [4, 0, 0, 0, 4, 0, 0, 4],
+               [4, 5, 1, 0, 3, 2, 4, 4],
+               [4, 4, 4, 4, 4, 4, 4, 4]],
+        "passed": false},
+            
+     "7":{
+        "lvl":[[9, 4, 4, 4, 4, 9, 9, 9],
+               [9, 4, 0, 0, 4, 4, 4, 4],
+               [4, 4, 0, 0, 1, 0, 0, 4],
+               [4, 0, 6, 3, 2, 1, 0, 4],
+               [4, 0, 1, 0, 2, 0, 0, 4],
+               [4, 4, 4, 4, 4, 4, 4, 4]],
+        "passed": false},
+            
+     "8":{
+        "lvl":[[9, 9, 4, 4, 4, 4, 4, 9, 9],
+               [4, 4, 4, 0, 0, 0, 4, 4, 4],
+               [4, 0, 1, 3, 3, 2, 0, 0, 4],
+               [4, 5, 1, 0, 0, 2, 4, 0, 4],
+               [4, 0, 1, 0, 4, 2, 0, 0, 4],
+               [4, 4, 4, 0, 0, 0, 4, 4, 4],
+               [9, 9, 4, 4, 4, 4, 4, 9, 9]],
+        "passed": false},
+        
+     "9":{
+        "lvl":[[9, 4, 4, 4, 4, 4, 9, 9, 9],
+               [9, 4, 0, 0, 0, 4, 4, 4, 4],
+               [9, 4, 0, 0, 0, 4, 0, 0, 4],
+               [9, 4, 4, 0, 0, 0, 0, 2, 4],
+               [4, 4, 4, 0, 4, 4, 4, 2, 4],
+               [4, 0, 1, 0, 4, 9, 4, 2, 4],
+               [4, 0, 1, 1, 4, 9, 4, 4, 4],
+               [4, 5, 0, 0, 4, 9, 9, 9, 9],
+               [4, 4, 4, 4, 4, 9, 9, 9, 9]],
+        "passed": false},
+
+     "10":{
+        "lvl":[[9, 9, 4, 4, 4, 4, 9, 9, 9],
+               [9, 9, 4, 0, 0, 4, 9, 9, 9],
+               [4, 4, 4, 0, 1, 4, 4, 4, 4],
+               [4, 5, 1, 2, 2, 0, 1, 0, 4],
+               [4, 0, 0, 2, 3, 0, 0, 0, 4],
+               [4, 4, 4, 0, 0, 4, 4, 4, 4],
+               [9, 9, 4, 0, 0, 4, 9, 9, 9],
+               [9, 9, 4, 4, 4, 4, 9, 9, 9]],
+        "passed": false},
 };
 
 let currLevel = 1;
+let levelInfo = document.getElementById("level-info");
+let levelsBtnList = document.querySelector(".levels");
 let gotVictory = false;
 
 let objArr, cellsOnX, cellsOnY, cellSize;
 let maxWidth, maxHeight;
 let canvasEl, canvas;
+let movesArr = [];
 
 // Setting current level, object array, cell size
 selectLevel();
@@ -64,8 +129,11 @@ maxGameSize();
 placeCanvas();
 // Setting button container position
 let repeatBtn = document.getElementById("repeat-btn");
+let menuBtn = document.getElementById("menu-btn");
+let backBtn = document.getElementById("back-btn");
+
+let gameEndrepeatBtn = document.getElementById("repeat-btn-game-end");
 let nextBtn = document.getElementById("next-btn");
-setBtnContainerPos();
 
 // Getting buttons
 let up = document.getElementById("up");
@@ -75,6 +143,10 @@ let down = document.getElementById("down");
 let center = document.getElementById("center");
 let btnList = document.querySelectorAll(".btn");
 setBtnSize();
+setBtnContainerPos();
+// Creating level buttons in menu
+createLevelsBtn();
+colorLevelButtons();
 
 // Creating coordinates array, drawing map first time
 let coordinatesArr;
@@ -84,7 +156,8 @@ createCoordinatesArr();
 // FUNCTIONS
 
 function selectLevel(){
-    objArr = structuredClone(levels[currLevel]);
+    objArr = structuredClone(levels[currLevel]["lvl"]);
+    levelInfo.innerText = `Уровень ${currLevel}`
     // Cells amount, size
     cellsOnX = objArr[0].length;
     cellsOnY = objArr.length;
@@ -119,18 +192,20 @@ function setBtnContainerPos(){
     let btnContainerRect = btnContainer.getBoundingClientRect();
 
     if(isVertical){
-        btnContainer.style.left = (screenWidth - btnContainerRect.width) / 3.5 + "px";
-        btnContainer.style.top = screenHeight - btnContainerRect.height * 1.3 + "px";
+        btnContainer.style.left = (screenWidth - btnContainerRect.width) / 2 + "px";
+        btnContainer.style.top = screenHeight - btnContainerRect.height - (screenHeight * 0.03) + "px";
         gameEndModal.classList.add("vertical");
-        repeatBtn.classList.add("vertical");
+        gameEndrepeatBtn.classList.add("vertical");
         nextBtn.classList.add("vertical");
+        levelsBtnList.classList.add("vertical");
     }
     else{
-        btnContainer.style.left = (screenWidth - btnContainerRect.width) / 1.2 + "px";
-        btnContainer.style.top = screenHeight - btnContainerRect.height * 1.3 + "px";
+        btnContainer.style.left = screenWidth - btnContainerRect.width - (screenWidth * 0.03) + "px";
+        btnContainer.style.top = screenHeight - btnContainerRect.height - (screenHeight * 0.05) + "px";
         gameEndModal.classList.add("horisontal");
-        repeatBtn.classList.add("horisontal");
+        gameEndrepeatBtn.classList.add("horisontal");
         nextBtn.classList.add("horisontal");
+        levelsBtnList.classList.add("horisontal");
     };
 };
 
@@ -145,6 +220,52 @@ function setBtnSize(){
         for(let i of btnList){
             i.style.width = `${screenWidth * 0.05}px`;
             i.style.height = `${screenWidth * 0.035}px`;
+        };
+    };
+};
+
+function createLevelsBtn(){
+    for(lvl of Object.keys(levels)){
+        levelsBtnList.innerHTML += (isVertical) ? `<div data-lvl="${lvl}" class="lvl vertical">${lvl}</div>` : `<div data-lvl="${lvl}" class="lvl horisontal">${lvl}</div>`;
+    };
+    let levelButtons = document.querySelectorAll(".lvl");
+    for(var i = 0; i < levelButtons.length; i++){
+        let btn = levelButtons[i];
+        if(isComputer){
+            btn.addEventListener("click", e => {
+                currLevel = btn.dataset.lvl;
+                closeMenu();
+                repeatLevel();
+            }, {passive: true});
+        }
+        else{
+            btn.addEventListener("touchstart", e => {
+                currLevel = btn.dataset.lvl;
+                closeMenu();
+                repeatLevel();
+            }, {passive: true});
+        };
+    };
+};
+
+function colorLevelButtons(){
+    let levelButtons = document.querySelectorAll(".lvl");
+    for(btn of levelButtons){
+        passed = levels[btn.dataset.lvl]["passed"];
+        if(btn.dataset.lvl == currLevel && passed){
+            btn.classList.add("curr-passed");
+        }
+        else if(btn.dataset.lvl == currLevel){
+            btn.classList.add("curr");
+            btn.classList.remove("passed");
+        }
+        else if(passed){
+            btn.classList.add("passed");
+            btn.classList.remove("curr-passed");
+        }
+        else{
+            btn.classList.remove("curr");
+            btn.classList.remove("passed");
         };
     };
 };
@@ -225,7 +346,7 @@ function calculateCollisions(objX, objY, addX, addY){
             player.onPlace = true;
             return {canMove: true, before: 0, after: null};
         case 3: // target on place
-            if(!isCellAfterAheadInArray || objArr[objY + addY * 2][objX + addX * 2] == 4 || objArr[objY + addY * 2][objX + addX * 2] == 3 || objArr[objY + addY * 2][objX + addX * 2] == 9) return {canMove: false, before: null, after: null};
+            if(!isCellAfterAheadInArray || objArr[objY + addY * 2][objX + addX * 2] == 4 || objArr[objY + addY * 2][objX + addX * 2] == 3 || objArr[objY + addY * 2][objX + addX * 2] == 9 || objArr[objY + addY * 2][objX + addX * 2] == 1) return {canMove: false, before: null, after: null};
             player.onPlace = true;
             return (objArr[objY + addY * 2][objX + addX * 2] == 2) ? {canMove: true, before: 0, after: 3} : {canMove: true, before: 0, after: 1};
         case 4: // wall
@@ -282,6 +403,8 @@ function renderMove(addX, addY){
                 player.onPlace = (objArr[player.y + addY][player.x + addX] == 2 || objArr[player.y + addY][player.x + addX] == 3);
             };
             // set player
+            movesArr.push([player.x, player.y, collisions]); // Putting moves to arr to undo them
+            console.log(movesArr[movesArr.length - 1])
             player.x += addX;
             player.y += addY;
             objArr[player.y][player.x] = (playerOnPlace) ? 6 : 5;
@@ -297,12 +420,12 @@ function renderMove(addX, addY){
 
 function victory(){
     gotVictory = true;
+    levels[currLevel]["passed"] = true;
     document.querySelector(".game-end-modal-container").style.display = "flex";
 };
 
 function repeatLevel(){
     gotVictory = false;
-    currLevel = currLevel;
 
     // Setting current level, object array, cell size
     selectLevel();
@@ -312,16 +435,20 @@ function repeatLevel(){
     placeCanvas();
     // Getting buttons
     setBtnSize();
+    colorLevelButtons();
     document.querySelector(".game-end-modal-container").style.display = "none";
     // Creating coordinates array, drawing map first time
     createCoordinatesArr();
+    up.classList.remove("active");
+    right.classList.remove("active");
+    left.classList.remove("active");
+    down.classList.remove("active");
+    movesArr = [];
 }
 
 function nextLevel(){
     gotVictory = false;
-
-    currLevel = (currLevel > 4) ? 1 : currLevel + 1;
-    console.log(currLevel)
+    currLevel = (+currLevel >= Object.keys(levels).length) ? 1 : +currLevel + 1;
 
     // Setting current level, object array, cell size
     selectLevel();
@@ -331,48 +458,30 @@ function nextLevel(){
     placeCanvas();
     // Getting buttons
     setBtnSize();
+    colorLevelButtons();
     document.querySelector(".game-end-modal-container").style.display = "none";
     // Creating coordinates array, drawing map first time
     createCoordinatesArr();
+    up.classList.remove("active");
+    right.classList.remove("active");
+    left.classList.remove("active");
+    down.classList.remove("active");
+    movesArr = [];
 }
 
-// Touchstart listeners
-up.addEventListener("touchstart", e => {
-    up.classList.add("active");
-    renderMove(0, -1);
-}, {passive: true});
+function openMenu(){
+    document.querySelector(".upper-menu-container").style.display = "none";
+    document.querySelector(".canvas-container").style.display = "none";
+    document.querySelector(".container").style.display = "none";
+    document.querySelector(".menu-modal-container").style.display = "flex";
+};
 
-right.addEventListener("touchstart", e => {
-    right.classList.add("active");
-    renderMove(1, 0);
-}, {passive: true});
-
-down.addEventListener("touchstart", e => {
-    down.classList.add("active");
-    renderMove(0, 1);
-}, {passive: true});
-
-left.addEventListener("touchstart", e => {
-    left.classList.add("active");
-    renderMove(-1, 0);
-}, {passive: true});
-
-// Touchend listeners
-up.addEventListener("touchend", e => {
-    up.classList.remove("active");
-}, {passive: true});
-
-right.addEventListener("touchend", e => {
-    right.classList.remove("active");
-}, {passive: true});
-
-down.addEventListener("touchend", e => {
-    down.classList.remove("active");
-}, {passive: true});
-
-left.addEventListener("touchend", e => {
-    left.classList.remove("active");
-}, {passive: true});
+function closeMenu(){
+    document.querySelector(".upper-menu-container").style.display = "flex";
+    document.querySelector(".canvas-container").style.display = "block";
+    document.querySelector(".container").style.display = "block";
+    document.querySelector(".menu-modal-container").style.display = "none";
+};
 
 //Keyboard "keydown" Listeners
 document.addEventListener("keydown", (e) => {
@@ -421,18 +530,99 @@ document.addEventListener("keyup", (e) => {
 });
 
 if(isComputer){
-    repeatBtn.addEventListener("click", e => {
-        repeatLevel();
+    // Mousedown listeners
+    up.addEventListener("mousedown", e => {
+        up.classList.add("active");
+        renderMove(0, -1);
     }, {passive: true});
-    nextBtn.addEventListener("click", e => {
-        nextLevel();
+
+    right.addEventListener("mousedown", e => {
+        right.classList.add("active");
+        renderMove(1, 0);
     }, {passive: true});
+
+    down.addEventListener("mousedown", e => {
+        down.classList.add("active");
+        renderMove(0, 1);
+    }, {passive: true});
+
+    left.addEventListener("mousedown", e => {
+        left.classList.add("active");
+        renderMove(-1, 0);
+    }, {passive: true});
+
+    // Mouseup listeners
+    up.addEventListener("mouseup", e => {
+        up.classList.remove("active");
+    }, {passive: true});
+
+    right.addEventListener("mouseup", e => {
+        right.classList.remove("active");
+    }, {passive: true});
+
+    down.addEventListener("mouseup", e => {
+        down.classList.remove("active");
+    }, {passive: true});
+
+    left.addEventListener("mouseup", e => {
+        left.classList.remove("active");
+    }, {passive: true});
+    gameEndrepeatBtn.addEventListener("click", repeatLevel, {passive: true});
+    nextBtn.addEventListener("click", nextLevel, {passive: true});
+    repeatBtn.addEventListener("click", repeatLevel, {passive: true});
+    menuBtn.addEventListener("click", openMenu, {passive: true});
+    backBtn.addEventListener("click", closeMenu, {passive: true});
+    center.addEventListener("mousedown", e => {
+        if(e.button == 2){
+            e.preventDefault();
+            console.log("2");
+        };
+    });
 }
 else{
-    repeatBtn.addEventListener("touchstart", e => {
-        repeatLevel();
+    // Touchstart listeners
+    up.addEventListener("touchstart", e => {
+        up.classList.add("active");
+        renderMove(0, -1);
     }, {passive: true});
-    nextBtn.addEventListener("click", e => {
-        nextLevel();
+
+    right.addEventListener("touchstart", e => {
+        right.classList.add("active");
+        renderMove(1, 0);
+    }, {passive: true});
+
+    down.addEventListener("touchstart", e => {
+        down.classList.add("active");
+        renderMove(0, 1);
+    }, {passive: true});
+
+    left.addEventListener("touchstart", e => {
+        left.classList.add("active");
+        renderMove(-1, 0);
+    }, {passive: true});
+
+    // Touchend listeners
+    up.addEventListener("touchend", e => {
+        up.classList.remove("active");
+    }, {passive: true});
+
+    right.addEventListener("touchend", e => {
+        right.classList.remove("active");
+    }, {passive: true});
+
+    down.addEventListener("touchend", e => {
+        down.classList.remove("active");
+    }, {passive: true});
+
+    left.addEventListener("touchend", e => {
+        left.classList.remove("active");
+    }, {passive: true});
+    gameEndrepeatBtn.addEventListener("touchstart", repeatLevel, {passive: true});
+    nextBtn.addEventListener("touchstart", nextLevel, {passive: true});
+    repeatBtn.addEventListener("touchstart", repeatLevel, {passive: true});
+    menuBtn.addEventListener("touchstart", openMenu, {passive: true});
+    backBtn.addEventListener("touchstart", closeMenu, {passive: true});
+    center.addEventListener("touchcancel", e => {
+        console.log("1");
     }, {passive: true});
 };
