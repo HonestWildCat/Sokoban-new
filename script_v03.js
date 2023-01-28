@@ -111,7 +111,7 @@ const levels = {
         "passed": false},
 };
 
-let currLevel = 1;
+let currLevel = readLocalStorage();
 let levelInfo = document.getElementById("level-info");
 let levelsBtnList = document.querySelector(".levels");
 let gotVictory = false;
@@ -154,6 +154,29 @@ createCoordinatesArr();
 
 
 // FUNCTIONS
+
+function readLocalStorage(){
+    let curlvl = 0;
+    if (localStorage.length < 1){
+        for(let lvlKey of Object.keys(levels)){
+            localStorage.setItem(lvlKey, levels[lvlKey]["passed"] ? "true" : "");
+            // console.log(levels[lvlKey]["passed"].toString())
+        };
+    };
+    for(let i = 1; i < localStorage.length + 1; i++){
+        let key = i.toString();
+        let passed = Boolean(localStorage.getItem(key));
+        // console.log(`key - ${key} item - ${Boolean(localStorage.getItem(key))}`);
+        if(passed){
+            levels[key]["passed"] = passed;
+        }
+        else if(!passed && curlvl == 0){
+            curlvl = key;
+        };
+    };
+    // localStorage.clear()
+    return (curlvl == 0) ? 1 : curlvl;
+}
 
 function selectLevel(){
     objArr = structuredClone(levels[currLevel]["lvl"]);
@@ -421,6 +444,10 @@ function renderMove(addX, addY){
 function victory(){
     gotVictory = true;
     levels[currLevel]["passed"] = true;
+    localStorage.setItem(currLevel, "true");
+    for(let i = 1; i < localStorage.length + 1; i++){
+        console.log(localStorage.getItem(i.toString()))
+    }
     document.querySelector(".game-end-modal-container").style.display = "flex";
 };
 
@@ -507,7 +534,20 @@ document.addEventListener("keydown", (e) => {
         }
         else if(e.code == "KeyR"){
             repeatLevel();
+        }
+        else if(e.key == "Enter"){
+            console.log(e.code)
+            if(gotVictory){
+                nextLevel();
+            }
         };
+    }
+    else{
+        if(e.key == "Enter"){
+            if(gotVictory){
+                nextLevel();
+            }
+        }
     };
 });
 

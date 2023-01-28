@@ -22,6 +22,10 @@
     transform: scale(0.8);
 }
 
+#center{
+    opacity: 0;
+}
+
 /* Canvas */
 
 .canvas-container{
