@@ -1,3 +1,7 @@
+window.addEventListener('resize', function() {
+    location.reload();
+});
+
 // Calculating screen width, height
 const screenWidth = document.documentElement.clientWidth;
 const screenHeight = document.documentElement.clientHeight;
