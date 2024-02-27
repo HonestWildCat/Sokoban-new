@@ -8,46 +8,47 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="body-bluegray">
-    <div class="upper-menu-container">
-        <div id="repeat-btn" class="upper-menu">&#11119;</div>
-        <div id="level-info" class="upper-menu"></div>
-        <div id="menu-btn" class="upper-menu">&#9776;</div>
-    </div>
-
-    <div class="canvas-container">
-        <canvas class="canvas-bluegray"></canvas>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div id="up" class="btn btn-bluegray">&#5123;</div>
+    <div id="game-container">
+        <div class="upper-menu-container">
+            <div id="repeat-btn" class="upper-menu">&#11119;</div>
+            <div id="level-info" class="upper-menu level"></div>
+            <div id="menu-btn" class="upper-menu">&#9776;</div>
         </div>
-        <div class="row">
-            <div id="left" class="btn btn-bluegray">&#5130;</div>
-            <div id="center" class="btn btn-bluegray"><sub>&#9679;</sub></div>
-            <div id="right" class="btn btn-bluegray">&#5125</div>
-            <div class="row">
-            <div id="down" class="btn btn-bluegray" readonly>&#5121;</div>
+
+        <div class="canvas-container">
+            <canvas class="canvas-bluegray"></canvas>
+        </div>
+
+        <div class="container">
+            <div  class="btn btn-bluegray invisible"></div>
+            <div  id="up" class="btn btn-bluegray">&#5123;</div>
+            <div  class="btn btn-bluegray invisible"></div>
+
+            <div  id="left" class="btn btn-bluegray">&#5130;</div>
+            <div  id="center" class="btn btn-bluegray">&#9679;</div>
+            <div  id="right" class="btn btn-bluegray">&#5125</div>
+
+            <div  class="btn btn-bluegray invisible"></div>
+            <div  id="down" class="btn btn-bluegray">&#5121;</div>
+            <div  class="btn btn-bluegray invisible"></div>
+        </div>
+
+        <div class="game-end-modal-container">
+            <div class="game-end-modal">
+                <div id="game-end-text">== Победа! ==</div>
+                <div class="game-end-btn-container"></div>
+                <input type="button" value="&#11119;" id="repeat-btn-game-end" class="btn">
+                <input type="button" value="&#10140;" id="next-btn" class="btn">
+            </div>
+        </div>
+
+        <div class="menu-modal-container">
+            <div class="menu-modal">
+                <div id="back-btn">&#8678;</div>
+                <div class="levels"></div>
             </div>
         </div>
     </div>
-
-    <div class="game-end-modal-container">
-        <div class="game-end-modal">
-            <div id="game-end-text">== Победа! ==</div>
-            <div class="game-end-btn-container"></div>
-            <input type="button" value="&#11119;" id="repeat-btn-game-end" class="btn">
-            <input type="button" value="&#10140;" id="next-btn" class="btn">
-        </div>
-    </div>
-
-    <div class="menu-modal-container">
-        <div class="menu-modal">
-            <div id="back-btn">&#8678;</div>
-            <div class="levels"></div>
-        </div>
-    </div>
-    
-    <script src="script_v03.js"></script>
+    <script src="script_v04.js"></script>
 </body>
 </html>
